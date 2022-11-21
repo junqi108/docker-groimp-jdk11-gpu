@@ -14,3 +14,8 @@ services:
         GROIMP_VERSION: $GROIMP_VERSION
         GROIMP_DIR: $GROIMP_DIR
         JAVA_XMX: $JAVA_XMX
+        DISPLAY: $DISPLAY	 
+    volumes:
+         - /tmp/.X11-unix:/tmp/.X11-unix
+    command: java "-Xmx${JAVA_XMX}M" -jar "${GROIMP_DIR}/core.jar" --debug=INFO 
+    network_mode: host

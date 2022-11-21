@@ -5,7 +5,7 @@ FROM debian:${DEBIAN_TAG}
 RUN apt-get update \ 
     && apt-get install -y --no-install-recommends bash curl coreutils ca-certificates libxi6 \
     libxrender-dev libxtst-dev freeglut3-dev \
-    libfreetype6 \
+    libfreetype6 x11-xserver-utils\
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -24,7 +24,8 @@ ARG GROIMP_VERSION
 ARG GROIMP_DIR 
 ARG JAVA_XMX
 
-RUN curl --output /tmp/groimp.deb "$GROIMP_PKG" \
-    && dpkg -i /tmp/groimp.deb \
+# RUN curl --output /tmp/groimp.deb "$GROIMP_PKG" \
+COPY "java/GroIMP-1.6-all.deb" /tmp/groimp.deb
+RUN dpkg -i /tmp/groimp.deb \
     && rm /tmp/groimp.deb
     
