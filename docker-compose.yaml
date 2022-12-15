@@ -33,7 +33,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./ext:/usr/share/GroIMP/ext
-    #command: java "-Xmx${JAVA_XMX}M" -Xverify:none -cp "${GROIMP_DIR}/jocl.jar:${GROIMP_DIR}/jogl.jar:${GROIMP_DIR}/gluegen-rt.jar" --module-path "${GROIMP_DIR}/Platform-Core/:${GROIMP_DIR}/Graph/:${GROIMP_DIR}/Utilities/:${GROIMP_DIR}/XL-Core/" --module platform.core/de.grogra.pf.boot.Main --project-tree
+    command: java "-Xmx${JAVA_XMX}M" -Xverify:none -cp "${GROIMP_DIR}/jocl.jar:${GROIMP_DIR}/jogl.jar:${GROIMP_DIR}/gluegen-rt.jar" --module-path "${GROIMP_DIR}/Platform-Core/:${GROIMP_DIR}/Graph/:${GROIMP_DIR}/Utilities/:${GROIMP_DIR}/XL-Core/" --module platform.core/de.grogra.pf.boot.Main --project-tree
     network_mode: host
 
 networks:
