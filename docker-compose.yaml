@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
 
-  groimp:
+  groimpImage:
     image: "debian:${DEBIAN_TAG}"
     build: 
       context: .
@@ -13,9 +13,30 @@ services:
         GROIMP_PKG: $GROIMP_PKG
         GROIMP_VERSION: $GROIMP_VERSION
         GROIMP_DIR: $GROIMP_DIR
-        JAVA_XMX: $JAVA_XMX
-        DISPLAY: $DISPLAY	 
+        JAVA_XMX: $JAVA_XMX  
+    
+
+
+
+
+  groimp:
+    image: "ghcr.io/${CONTAINER_REG_USER}/${CONTAINER_REG_NAME}:latest"
+    environment:
+      DEBIAN_TAG: $DEBIAN_TAG
+      JDK_PKG: $JDK_PKG
+      JDK_HOME: $JDK_HOME
+      GROIMP_PKG: $GROIMP_PKG
+      GROIMP_VERSION: $GROIMP_VERSION
+      GROIMP_DIR: $GROIMP_DIR
+      JAVA_XMX: $JAVA_XMX
+      DISPLAY: $DISPLAY
     volumes:
-         - /tmp/.X11-unix:/tmp/.X11-unix
-    command: java "-Xmx${JAVA_XMX}M" -jar "${GROIMP_DIR}/core.jar" --debug=INFO 
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./ext:/usr/share/GroIMP/ext
+    #command: java "-Xmx${JAVA_XMX}M" -Xverify:none -cp "${GROIMP_DIR}/jocl.jar:${GROIMP_DIR}/jogl.jar:${GROIMP_DIR}/gluegen-rt.jar" --module-path "${GROIMP_DIR}/Platform-Core/:${GROIMP_DIR}/Graph/:${GROIMP_DIR}/Utilities/:${GROIMP_DIR}/XL-Core/" --module platform.core/de.grogra.pf.boot.Main --project-tree
     network_mode: host
+
+networks:
+  default:
+      name: groimp-docker
+
